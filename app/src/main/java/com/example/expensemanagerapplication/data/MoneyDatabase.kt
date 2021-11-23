@@ -23,7 +23,7 @@ abstract class MoneyDatabase : RoomDatabase() {
                     context.applicationContext,
                     MoneyDatabase::class.java,
                     "transaction_database"
-                ).build()
+                ).allowMainThreadQueries().build()
                 INSTANCE = instance
                 // return instance
                 instance

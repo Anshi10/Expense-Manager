@@ -158,7 +158,7 @@ class HomeFragment : Fragment(),ItransactionListAdapter {
     }
 
     override fun onitemclikced(transaction: Transaction) {
-
+          findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToTransactionHistoryFragment(transaction.id))
     }
 
 }

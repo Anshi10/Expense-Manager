@@ -22,7 +22,10 @@ data class Transaction(
     val transaction_type : String,
     val category : String,
     val recurring_from : String,
-    val recurring_to : String
+    val recurring_to : String,
+    val IorE : Boolean
 ){
     @PrimaryKey(autoGenerate = true) var id :Long=0
 }
+//true : Income
+//false : Expense

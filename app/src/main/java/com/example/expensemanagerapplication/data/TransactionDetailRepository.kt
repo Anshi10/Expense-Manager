@@ -15,4 +15,7 @@ class TransactionDetailRepository(private  val transactionDetailDao : Transactio
     fun updateTransaction() : LiveData<List<Transaction>> {
         return transactionDetailDao.getalltransaction()
     }
+    fun getTransactionRY(Id : Long) : Transaction{
+        return transactionDetailDao.getTransactionDO(Id)
+    }
 }

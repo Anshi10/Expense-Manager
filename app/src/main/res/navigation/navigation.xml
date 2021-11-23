@@ -61,5 +61,9 @@
         android:id="@+id/transactionHistoryFragment"
         android:name="com.example.expensemanagerapplication.ui.TransactionHistoryFragment"
         android:label="fragment_transaction_history"
-        tools:layout="@layout/fragment_transaction_history" />
+        tools:layout="@layout/fragment_transaction_history" >
+        <argument
+            android:name="id"
+            app:argType="long" />
+    </fragment>
 </navigation>

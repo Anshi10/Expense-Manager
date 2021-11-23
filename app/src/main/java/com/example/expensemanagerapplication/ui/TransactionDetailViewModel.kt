@@ -9,6 +9,7 @@ import com.example.expensemanagerapplication.data.MoneyDatabase
 import com.example.expensemanagerapplication.data.Transaction
 import com.example.expensemanagerapplication.data.TransactionDetailRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class TransactionDetailViewModel(application: Application) :AndroidViewModel(application) {
@@ -31,5 +32,8 @@ class TransactionDetailViewModel(application: Application) :AndroidViewModel(app
     }
     fun updateTrans() {
         transactions = transactionDetailRepository.updateTransaction()
+    }
+    fun getTransactionVM(Id : Long) : Transaction{
+        return transactionDetailRepository.getTransactionRY(Id)
     }
 }

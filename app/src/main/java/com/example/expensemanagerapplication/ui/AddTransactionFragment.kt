@@ -75,8 +75,9 @@ class AddTransactionFragment : Fragment() {
         val amount = binding.amount.text.toString().toFloat()
         val category = binding.categoryEdittext.text.toString()
         val comment = binding.addComment.text.toString()
-        val type = binding.selectTransactionLayout.editText.toString()
+        val type = binding.selectTransactionLayout.editText?.text.toString()
         var date = binding.transactionDateLayout.editText?.text.toString()
+        var transCategory = false
         //storing date as month , date , year
         val day = Integer.parseInt(date.substring(0,2))
         val month = Integer.parseInt(date.substring(3,5))
@@ -88,8 +89,10 @@ class AddTransactionFragment : Fragment() {
             recurringFrom = "null"
             recurringTo = "null"
         }
-
-        val transaction = Transaction(transactionName,amount,day,month,year,comment,date,type,category,recurringFrom,recurringTo)
+        if(mode==Type.Income){
+            transCategory = true
+        }
+        val transaction = Transaction(transactionName,amount,day,month,year,comment,date,type,category,recurringFrom,recurringTo,transCategory)
         addTransactionViewModel.insert(transaction)
         Log.d("anshi","data inserted in add trnasaction fragment ")
         requireActivity().onBackPressed()

@@ -179,26 +179,24 @@
                     android:layout_height="100dp"/>
 
             </com.google.android.material.textfield.TextInputLayout>
-            <Button
-                android:id="@+id/expenseButton"
-                android:layout_width="180dp"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Expense"
-                android:backgroundTint="@color/red"
-                app:layout_constraintTop_toBottomOf="@id/commentLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_margin="12dp"/>
-            <Button
-                android:id="@+id/incomeButton"
-                android:layout_width="180dp"
-                android:layout_height="wrap_content"
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            app:layout_constraintTop_toBottomOf="@+id/commentLayout"
+            android:layout_margin="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style = "@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <RadioButton
+                android:id="@+id/income"
                 android:text="Income"
-                android:padding="10dp"
-                android:backgroundTint="@color/green"
-                app:layout_constraintTop_toBottomOf="@id/commentLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_margin="12dp"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <RadioButton
+                android:id="@+id/Expense"
+                android:text="Expense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
