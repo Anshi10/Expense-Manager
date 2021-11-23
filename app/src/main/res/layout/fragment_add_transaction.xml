@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.AddTransactionFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/TopBar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/back_button"
+            app:title="Expense Manager" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:orientation="vertical">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:helperText="Required!"
+                    app:endIconMode="clear_text"
+                    android:layout_margin="12dp"
+                    style = "@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="Transaction Name">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/transaction_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    app:helperText="Required!"
+                    style = "@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="Amount ">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/transaction_date_Layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:clickable="true"
+                    app:endIconDrawable="@drawable/calender_icon"
+                    app:endIconMode="custom"
+                    style = "@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="Select Date">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <CheckBox
+                    android:id="@+id/recurrence"
+                    android:layout_margin="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Recurring Transaction"/>
+
+            </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fromdate_layout"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                style = "@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/calender_icon"
+                android:layout_marginStart="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:enabled="false"
+                app:layout_constraintTop_toBottomOf="@+id/linear_layout"
+                app:layout_constraintStart_toStartOf="parent">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fromDate_Edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="From Date"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/todate_layout"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                style = "@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/calender_icon"
+                android:layout_marginEnd="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:enabled="false"
+                app:layout_constraintTop_toBottomOf="@+id/linear_layout"
+                app:layout_constraintEnd_toEndOf="parent">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/toDate_Edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="To Date"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/category_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style = "@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:clickable="true"
+                android:layout_margin="12dp"
+                android:hint=" Category"
+                app:layout_constraintTop_toBottomOf="@+id/fromdate_layout"
+                app:layout_constraintEnd_toEndOf="parent">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/category_Edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/select_transaction_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_margin="12dp"
+                android:hint="   Select Transaction Type"
+                app:layout_constraintTop_toBottomOf="@+id/category_layout"
+                app:layout_constraintEnd_toEndOf="parent">
+                <AutoCompleteTextView
+                    android:id="@+id/transaction_type"
+                    android:inputType="none"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/comment_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                style = "@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:clickable="true"
+                android:layout_margin="12dp"
+                android:hint="Add Comment"
+                app:layout_constraintTop_toBottomOf="@+id/select_transaction_layout"
+                app:layout_constraintEnd_toEndOf="parent">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <Button
+                android:id="@+id/expense_button"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Expense"
+                android:backgroundTint="@color/red"
+                app:layout_constraintTop_toBottomOf="@id/comment_Layout"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_margin="12dp"/>
+            <Button
+                android:id="@+id/income_button"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="Income"
+                android:padding="10dp"
+                android:backgroundTint="@color/green"
+                app:layout_constraintTop_toBottomOf="@id/comment_Layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="12dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>
