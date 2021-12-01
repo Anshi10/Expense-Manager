@@ -32,7 +32,7 @@ class AddTransactionFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentAddTransactionBinding.inflate(inflater,container,false)
         //handling drop down menu
@@ -44,7 +44,7 @@ class AddTransactionFragment : Fragment() {
             requireActivity().onBackPressed()
         }
         //on checked recurringOption
-        binding.recurrence.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.recurrence.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 binding.fromdateLayout.isEnabled = true
                 binding.todateLayout.isEnabled = true
@@ -76,7 +76,9 @@ class AddTransactionFragment : Fragment() {
         val category = binding.categoryEdittext.text.toString()
         val comment = binding.addComment.text.toString()
         val type = binding.selectTransactionLayout.editText?.text.toString()
-        var date = binding.transactionDateLayout.editText?.text.toString()
+        val date = binding.transactionDateLayout.editText?.text.toString()
+        Log.d("anshi","$date in add transaction fragmnet")
+        Log.d("anshi","date in store data = $date")
         var transCategory = false
         //storing date as month , date , year
         val day = Integer.parseInt(date.substring(0,2))
@@ -99,7 +101,7 @@ class AddTransactionFragment : Fragment() {
 
     }
 
-    fun EditText.transformIntoDatePicker(context: Context, format: String, maxDate: Date? = null) {
+    private fun EditText.transformIntoDatePicker(context: Context, format: String) {
         isFocusableInTouchMode = false
         isClickable = true
         isFocusable = false
@@ -120,7 +122,6 @@ class AddTransactionFragment : Fragment() {
                     .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH)
             ).run {
-//                maxDate?.time?.also { datePicker.maxDate = it }
                 show()
             }
         }

@@ -11,4 +11,7 @@
         <item>Insurance</item>
         <item>Salon</item>
     </string-array>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="transactions_on_this_day">Transactions on this Day</string>
 </resources>

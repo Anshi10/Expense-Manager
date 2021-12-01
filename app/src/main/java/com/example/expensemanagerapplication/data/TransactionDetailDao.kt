@@ -18,5 +18,8 @@ interface TransactionDetailDao {
     fun getalltransaction(): LiveData<List<Transaction>>
 
     @Query("select * from transaction_table where id = :Id")
-    fun getTransactionDO(Id : Long): Transaction
+    fun getTransactionbyId(Id : Long): Transaction
+
+    @Query("select * from transaction_table where datePicker = :date")
+    fun getTransactionbyDate(date : String) : LiveData<List<Transaction>>
 }

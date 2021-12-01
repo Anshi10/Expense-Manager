@@ -1,15 +1,14 @@
 package com.example.expensemanagerapplication.ui
 
 import android.os.Bundle
+import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.example.expensemanagerapplication.R
 import com.example.expensemanagerapplication.data.Transaction
+import com.example.expensemanagerapplication.data.Type
 import com.example.expensemanagerapplication.databinding.FragmentTransactionHistoryBinding
 
 class TransactionHistoryFragment : Fragment() {
@@ -26,7 +25,7 @@ class TransactionHistoryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View{
         // Inflate the layout for this fragment
         _binding = FragmentTransactionHistoryBinding.inflate(inflater,container,false)
         //when back button is pressed
@@ -36,16 +35,29 @@ class TransactionHistoryFragment : Fragment() {
         //disable all views
         disabled()
         //getting id from Home Fragment
-        val args: TransactionHistoryFragmentArgs by navArgs()
+        val args : TransactionHistoryFragmentArgs by navArgs()
         val Id = args.id
         //setting data
-        val transaction = viewModel.getTransactionVM(Id)
+        val transaction = viewModel.getTransactionbyid(Id)
         setData(transaction)
         //handling edit button
-        handleMenuButtons(Id,transaction)
+        handleMenuButtons(transaction)
         return binding.root
     }
-
+    private fun setData(transaction: Transaction) {
+        binding.transactionName.setText(transaction.name)
+        binding.amount.setText(transaction.amount.toString())
+        binding.date.setText(transaction.datePicker)
+        binding.categoryEdittext.setText(transaction.category)
+        binding.transactionType.setText(transaction.transaction_type)
+        binding.addComment.setText(transaction.comment)
+        if(transaction.IorE){
+            binding.income.isChecked=true
+        }
+        else{
+            binding.Expense.isChecked= true
+        }
+    }
     private fun disabled() {
         binding.transactionName.isEnabled = false
         binding.amount.isEnabled= false
@@ -60,12 +72,24 @@ class TransactionHistoryFragment : Fragment() {
         binding.Expense.isEnabled = false
     }
 
-    private fun handleMenuButtons(Id:Long,transaction: Transaction) {
+    private fun handleMenuButtons(transaction: Transaction) {
       binding.TopBar.setOnMenuItemClickListener { it->
           when(it.itemId){
                   R.id.edit->{
                       abled()
-                      it.setIcon(R.id.check)
+                      it.setIcon(R.drawable.check)
+                      it.setOnMenuItemClickListener{MenuItem->
+                          when(MenuItem.itemId){
+                              R.id.edit->{
+                                  val freshTrans = storefreshdata()
+                                  viewModel.update(freshTrans)
+                                 disabled()
+                                  requireActivity().onBackPressed()
+                                  true
+                              }
+                              else->false
+                          }
+                      }
                       true
                   }
               R.id.delete->{
@@ -76,6 +100,33 @@ class TransactionHistoryFragment : Fragment() {
               else->false
           }
       }
+    }
+
+    private fun storefreshdata() : Transaction {
+        val transactionName = binding.transactionName.text.toString()
+        val amount = binding.amount.text.toString().toFloat()
+        val category = binding.categoryEdittext.text.toString()
+        val comment = binding.addComment.text.toString()
+        val type = binding.selectTransactionLayout.editText?.text.toString()
+        var date = binding.dateLayout.editText?.text.toString()
+        Log.d("anshi","date in store data = $date")
+        var transCategory = false
+        //storing date as month , date , year
+        val day = Integer.parseInt(date.substring(0,2))
+        val month = Integer.parseInt(date.substring(3,5))
+        val year = Integer.parseInt(date.substring(6))
+        //if recurrence checkbox is clicked
+        var recurringFrom = binding.fromDateEdittext.text.toString()
+        var recurringTo = binding.toDateEdittext.text.toString()
+        if(!binding.recurrenceOption.isChecked){
+            recurringFrom = "null"
+            recurringTo = "null"
+        }
+       if(binding.income.isChecked){
+           transCategory
+       }
+        val freshtransaction = Transaction(transactionName,amount,day,month,year,comment,date,type,category,recurringFrom,recurringTo,transCategory)
+     return freshtransaction
     }
 
     private fun abled() {
@@ -91,20 +142,5 @@ class TransactionHistoryFragment : Fragment() {
         binding.income.isEnabled = true
         binding.Expense.isEnabled = true
     }
-
-    private fun setData(transaction: Transaction) {
-     binding.transactionName.setText(transaction.name)
-        binding.amount.setText(transaction.amount.toString())
-        binding.date.setText(transaction.datePicker)
-        binding.categoryEdittext.setText(transaction.category)
-        binding.transactionType.setText(transaction.transaction_type)
-        if(transaction.IorE){
-            binding.income.isChecked=true
-        }
-        else{
-            binding.Expense.isChecked= true
-        }
-    }
-
 
 }

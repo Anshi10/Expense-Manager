@@ -1,5 +1,6 @@
 package com.example.expensemanagerapplication.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 
 class TransactionDetailRepository(private  val transactionDetailDao : TransactionDetailDao) {
@@ -15,7 +16,11 @@ class TransactionDetailRepository(private  val transactionDetailDao : Transactio
     fun updateTransaction() : LiveData<List<Transaction>> {
         return transactionDetailDao.getalltransaction()
     }
-    fun getTransactionRY(Id : Long) : Transaction{
-        return transactionDetailDao.getTransactionDO(Id)
+    fun getTransactionbyID(Id : Long) : Transaction{
+        return transactionDetailDao.getTransactionbyId(Id)
+    }
+    fun getTransactionbydate(date : String):LiveData<List<Transaction>>{
+        val result =  transactionDetailDao.getTransactionbyDate(date)
+        return  result
     }
 }

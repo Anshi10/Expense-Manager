@@ -12,4 +12,5 @@
         android:icon="@drawable/calender_icon"
         android:title="Calender View"
         app:showAsAction="ifRoom"/>
+
 </menu>

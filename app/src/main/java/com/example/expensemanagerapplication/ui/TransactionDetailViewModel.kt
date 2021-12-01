@@ -9,7 +9,6 @@ import com.example.expensemanagerapplication.data.MoneyDatabase
 import com.example.expensemanagerapplication.data.Transaction
 import com.example.expensemanagerapplication.data.TransactionDetailRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class TransactionDetailViewModel(application: Application) :AndroidViewModel(application) {
@@ -27,13 +26,19 @@ class TransactionDetailViewModel(application: Application) :AndroidViewModel(app
     }
     fun insert(transaction:Transaction) = viewModelScope.launch(Dispatchers.IO){
         transactionDetailRepository.insert(transaction)
-        Log.d("anshi","TDV transaction inserted")
         updateTrans()
+    }
+    fun update(transaction: Transaction)= viewModelScope.launch(Dispatchers.IO) {
+        transactionDetailRepository.update(transaction)
+        Log.d("anshi","data updated")
     }
     fun updateTrans() {
         transactions = transactionDetailRepository.updateTransaction()
     }
-    fun getTransactionVM(Id : Long) : Transaction{
-        return transactionDetailRepository.getTransactionRY(Id)
+    fun getTransactionbyid(Id : Long) : Transaction{
+        return transactionDetailRepository.getTransactionbyID(Id)
+    }
+    fun getTransactionbydate(date : String) : LiveData<List<Transaction>>{
+        return transactionDetailRepository.getTransactionbydate(date)
     }
 }

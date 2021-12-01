@@ -130,13 +130,15 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:padding="10dp"
             tools:listitem="@layout/item_transaction_cardview"/>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/add"
             android:layout_margin="15dp"
+            android:src="@drawable/add"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

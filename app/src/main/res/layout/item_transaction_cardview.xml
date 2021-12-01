@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:clickable="true"
-    android:layout_margin="5dp"
+    android:layout_margin="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <View

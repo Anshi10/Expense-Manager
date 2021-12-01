@@ -12,6 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +29,8 @@ class HomeFragment : Fragment(),ItransactionListAdapter {
     private val binding get() = _binding!!
     //view Model instance
     private lateinit var HomeFragmentViewModel : TransactionDetailViewModel
+    //hamburger sign
+    private lateinit var toggle : ActionBarDrawerToggle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
  HomeFragmentViewModel = ViewModelProvider(this).get(TransactionDetailViewModel::class.java)
@@ -35,9 +39,15 @@ class HomeFragment : Fragment(),ItransactionListAdapter {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater,container,false)
+
+       binding.topbar.setNavigationOnClickListener {
+           //setting navigation drawer
+
+          binding.drwarerLayout.openDrawer(GravityCompat.START)
+       }
         return binding.root
     }
 
@@ -52,6 +62,11 @@ class HomeFragment : Fragment(),ItransactionListAdapter {
         AppBar()
         updatePiechart()
         upcomingTransaction()
+        MonthCardList()
+    }
+
+    private fun MonthCardList() {
+
     }
 
     private fun upcomingTransaction() {
@@ -69,7 +84,7 @@ class HomeFragment : Fragment(),ItransactionListAdapter {
 //        HomeFragmentViewModel.transactions.observe(viewLifecycleOwner, Observer{
 //            (trans_cardRV.adapter as TransactionListAdapter).submitList(it)
 //        })
-        Log.d("anshi","upcoming transaction implemented")
+//        Log.d("anshi","upcoming transaction implemented")
     }
 
     private fun AppBar() {
@@ -99,7 +114,7 @@ class HomeFragment : Fragment(),ItransactionListAdapter {
             setView(dialogView)
             setTitle("Set Details")
             setMessage("Set Cash distribution Information")
-            setPositiveButton("Set") { dialog, which ->
+            setPositiveButton("Set") { _, which ->
                 if (cash.text.toString() == "" || debit.text.toString() == "" || credit.text.toString() =="") {
                     Toast.makeText(activity, "Invalid Input ", Toast.LENGTH_SHORT).show()
                 }else {
@@ -141,20 +156,20 @@ class HomeFragment : Fragment(),ItransactionListAdapter {
         binding.cashAmount.text= "$cash_amount"
         binding.debitAmount.text= "$debit_amount"
         binding.creditAmount.text = "$credit_amount"
-        var sum = cash_amount+debit_amount+credit_amount
+        val sum = cash_amount+debit_amount+credit_amount
         binding.totalAmount.text = "$sum"
         binding.piechart.clearChart()
         //adding Piechart
-        binding.piechart?.addPieSlice(
-            PieModel("Cash",cash_amount, Color.parseColor("#FFA726"))
+        binding.piechart.addPieSlice(
+            PieModel("Cash",cash_amount, Color.parseColor("#07e642"))
         )
-        binding.piechart?.addPieSlice(
-            PieModel("Credit", credit_amount, Color.parseColor("#66BB6A"))
+        binding.piechart.addPieSlice(
+            PieModel("Credit", credit_amount, Color.parseColor("#afb806"))
         )
-        binding.piechart?.addPieSlice(
-            PieModel("Dredit", debit_amount, Color.parseColor("#EF5350"))
+        binding.piechart.addPieSlice(
+            PieModel("Debit", debit_amount, Color.parseColor("#EF5350"))
         )
-        binding.piechart?.startAnimation();
+        binding.piechart.startAnimation()
     }
 
     override fun onitemclikced(transaction: Transaction) {

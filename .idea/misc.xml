@@ -17,11 +17,13 @@
         <entry key="..\:/Users/choud/AndroidStudioProjects/ExpenseManagerApplication/app/src/main/res/layout/item_list_view.xml" value="0.25" />
         <entry key="..\:/Users/choud/AndroidStudioProjects/ExpenseManagerApplication/app/src/main/res/layout/item_month_card_view.xml" value="0.25" />
         <entry key="..\:/Users/choud/AndroidStudioProjects/ExpenseManagerApplication/app/src/main/res/layout/item_transaction_cardview.xml" value="0.25" />
+        <entry key="..\:/Users/choud/AndroidStudioProjects/ExpenseManagerApplication/app/src/main/res/layout/nav_header.xml" value="0.25" />
         <entry key="..\:/Users/choud/AndroidStudioProjects/ExpenseManagerApplication/app/src/main/res/layout/set_balance_info.xml" value="0.25" />
         <entry key="..\:/Users/choud/AndroidStudioProjects/ExpenseManagerApplication/app/src/main/res/menu/add_transaction_menu.xml" value="0.25" />
         <entry key="..\:/Users/choud/AndroidStudioProjects/ExpenseManagerApplication/app/src/main/res/menu/done_menu.xml" value="0.25" />
         <entry key="..\:/Users/choud/AndroidStudioProjects/ExpenseManagerApplication/app/src/main/res/menu/edit_menu.xml" value="0.25" />
         <entry key="..\:/Users/choud/AndroidStudioProjects/ExpenseManagerApplication/app/src/main/res/menu/home_fragment_menu.xml" value="0.25" />
+        <entry key="..\:/Users/choud/AndroidStudioProjects/ExpenseManagerApplication/app/src/main/res/menu/nav_menu.xml" value="0.4" />
       </map>
     </option>
   </component>

@@ -1,10 +1,12 @@
 package com.example.expensemanagerapplication.ui
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.expensemanagerapplication.R
 import com.example.expensemanagerapplication.data.Transaction
@@ -35,17 +37,24 @@ class TransactionListAdapter(private val listener: HomeFragment) : RecyclerView.
         val arrow = itemView.findViewById<ImageView>(R.id.arrow)
         fun bind(transaction: Transaction) {
             item_name.text = transaction.name
-            item_amount.text = transaction.amount.toString()
             item_date.text = transaction.datePicker
+            if(transaction.IorE){
+                item_amount.text = "+"+transaction.amount.toString()
+                item_amount.setTextColor(Color.parseColor("#07e642"))
+            }
+            else{
+                item_amount.text = "-"+transaction.amount.toString()
+                item_amount.setTextColor(Color.parseColor("#f71f07"))
+            }
             when (transaction.transaction_type) {
                 "Cash" -> {
-                    trnsaction_type_view.setBackgroundResource(R.color.yellow)
+                    trnsaction_type_view.setBackgroundResource(R.color.green)
                 }
                 "Debit Card" -> {
                     trnsaction_type_view.setBackgroundResource(R.color.red)
                 }
                 "Credit Card" -> {
-                    trnsaction_type_view.setBackgroundResource(R.color.green)
+                    trnsaction_type_view.setBackgroundResource(R.color.yellow)
                 }
 
             }

@@ -29,7 +29,7 @@ class OnBoarding : Fragment(R.layout.fragment_on_boarding) {
             editor.apply()
         }else{
             findNavController().navigate(R.id.action_onBoarding_to_homeFragment)
-            Log.d("anshi","already first time opened")
+//            Log.d("anshi","already first time opened")
         }
     }
 
