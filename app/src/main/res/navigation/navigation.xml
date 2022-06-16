@@ -34,8 +34,8 @@
             android:id="@+id/action_homeFragment_to_transactionHistoryFragment"
             app:destination="@id/transactionHistoryFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_monthFragment"
-            app:destination="@id/monthFragment" />
+            android:id="@+id/action_homeFragment_to_viewBy"
+            app:destination="@id/viewBy" />
     </fragment>
     <fragment
         android:id="@+id/calendarFragment"
@@ -46,7 +46,15 @@
         android:id="@+id/monthFragment"
         android:name="com.example.expensemanagerapplication.ui.MonthFragment"
         android:label="MonthFragment"
-        tools:layout="@layout/fragment_month"/>
+        tools:layout="@layout/fragment_month">
+        <action
+            android:id="@+id/action_monthFragment_to_transactionHistoryFragment"
+            app:destination="@id/transactionHistoryFragment" />
+        <argument
+            android:name="monthNo"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
     <fragment
         android:id="@+id/addTransactionFragment"
         android:name="com.example.expensemanagerapplication.ui.AddTransactionFragment"
@@ -65,5 +73,17 @@
         <argument
             android:name="id"
             app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewBy"
+        android:name="com.example.expensemanagerapplication.ui.ViewBy"
+        android:label="fragment_view_by"
+        tools:layout="@layout/fragment_view_by" >
+        <argument
+            android:name="option"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_viewBy_to_monthFragment"
+            app:destination="@id/monthFragment" />
     </fragment>
 </navigation>

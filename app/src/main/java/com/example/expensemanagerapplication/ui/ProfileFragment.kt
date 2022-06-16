@@ -55,7 +55,7 @@ class ProfileFragment : Fragment() {
         val pref = this.requireActivity().getSharedPreferences("Preference", Context.MODE_PRIVATE)
         val editor = pref.edit()
         binding.saveButton.setOnClickListener{
-            editor.putString("name",binding.Name.toString())
+            editor.putString("name",binding.Name.text?.trim().toString())
             editor.putFloat("monthly_budget",binding.budget.text.toString().toFloat())
             editor.putFloat("income",binding.income.text.toString().toFloat())
             editor.commit()

@@ -41,4 +41,14 @@ class TransactionDetailViewModel(application: Application) :AndroidViewModel(app
     fun getTransactionbydate(date : String) : LiveData<List<Transaction>>{
         return transactionDetailRepository.getTransactionbydate(date)
     }
+    fun getTransactionbyType(type : String) : LiveData<List<Transaction>>{
+        return transactionDetailRepository.getTransactionbytype(type)
+    }
+    fun getTransactionbyMonth(monthNo : Int) : LiveData<List<Transaction>>{
+        return transactionDetailRepository.getTransactionbyMonth(monthNo)
+    }
+    fun getMonthList() : LiveData<List<Int>>{
+        return transactionDetailRepository.getMonthList()
+    }
+
 }

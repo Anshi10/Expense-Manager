@@ -45,7 +45,6 @@ class TransactionHistoryFragment : Fragment() {
         return binding.root
     }
     private fun setData(transaction: Transaction) {
-        binding.transactionName.setText(transaction.name)
         binding.amount.setText(transaction.amount.toString())
         binding.date.setText(transaction.datePicker)
         binding.categoryEdittext.setText(transaction.category)
@@ -59,7 +58,6 @@ class TransactionHistoryFragment : Fragment() {
         }
     }
     private fun disabled() {
-        binding.transactionName.isEnabled = false
         binding.amount.isEnabled= false
         binding.dateLayout.isEnabled=false
         binding.recurrenceOption.isEnabled=false
@@ -103,7 +101,6 @@ class TransactionHistoryFragment : Fragment() {
     }
 
     private fun storefreshdata() : Transaction {
-        val transactionName = binding.transactionName.text.toString()
         val amount = binding.amount.text.toString().toFloat()
         val category = binding.categoryEdittext.text.toString()
         val comment = binding.addComment.text.toString()
@@ -125,12 +122,11 @@ class TransactionHistoryFragment : Fragment() {
        if(binding.income.isChecked){
            transCategory
        }
-        val freshtransaction = Transaction(transactionName,amount,day,month,year,comment,date,type,category,recurringFrom,recurringTo,transCategory)
+        val freshtransaction = Transaction(amount,day,month,year,comment,date,type,category,recurringFrom,recurringTo,transCategory)
      return freshtransaction
     }
 
     private fun abled() {
-        binding.transactionName.isEnabled = true
         binding.amount.isEnabled= true
         binding.dateLayout.isEnabled=true
         binding.recurrenceOption.isEnabled=true

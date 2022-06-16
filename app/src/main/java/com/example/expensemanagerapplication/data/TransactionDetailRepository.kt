@@ -23,4 +23,16 @@ class TransactionDetailRepository(private  val transactionDetailDao : Transactio
         val result =  transactionDetailDao.getTransactionbyDate(date)
         return  result
     }
+    fun getTransactionbytype(type : String) : LiveData<List<Transaction>>{
+        val ans = transactionDetailDao.getTransactionbyType(type)
+        return ans
+    }
+    fun getTransactionbyMonth(MonthNo : Int) : LiveData<List<Transaction>>{
+        val monthans = transactionDetailDao.getTransactionbyMonth(MonthNo)
+        return monthans
+    }
+    fun getMonthList() : LiveData<List<Int>>{
+        val MonthListans = transactionDetailDao.getMonthList()
+        return MonthListans
+    }
 }

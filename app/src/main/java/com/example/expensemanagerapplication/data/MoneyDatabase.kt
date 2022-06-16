@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [Transaction::class], version = 1, exportSchema = false)
+@Database(entities = [Transaction::class], version = 2, exportSchema = false)
 abstract class MoneyDatabase : RoomDatabase() {
     abstract fun transactionListDao():TransactionDetailDao
     companion object {
@@ -23,7 +23,7 @@ abstract class MoneyDatabase : RoomDatabase() {
                     context.applicationContext,
                     MoneyDatabase::class.java,
                     "transaction_database"
-                ).allowMainThreadQueries().build()
+                ).allowMainThreadQueries().fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 // return instance
                 instance

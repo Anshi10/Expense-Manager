@@ -37,7 +37,7 @@ class calendarViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
           val transactionName = itemView.findViewById<TextView>(R.id.itemC)
           val transactionAmount = itemView.findViewById<TextView>(R.id.item_amountC)
     fun bind(transaction : Transaction){
-        transactionName.setText(transaction.name)
+        transactionName.setText(transaction.category)
         if(transaction.IorE){
             transactionAmount.text = "+"+transaction.amount.toString()
             transactionAmount.setTextColor(Color.parseColor("#07e642"))

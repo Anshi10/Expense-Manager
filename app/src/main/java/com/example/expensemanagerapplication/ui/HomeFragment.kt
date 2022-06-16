@@ -11,8 +11,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -29,8 +30,7 @@ class HomeFragment : Fragment(),ItransactionListAdapter {
     private val binding get() = _binding!!
     //view Model instance
     private lateinit var HomeFragmentViewModel : TransactionDetailViewModel
-    //hamburger sign
-    private lateinit var toggle : ActionBarDrawerToggle
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
  HomeFragmentViewModel = ViewModelProvider(this).get(TransactionDetailViewModel::class.java)
@@ -44,8 +44,7 @@ class HomeFragment : Fragment(),ItransactionListAdapter {
         _binding = FragmentHomeBinding.inflate(inflater,container,false)
 
        binding.topbar.setNavigationOnClickListener {
-           //setting navigation drawer
-
+           //opening navigation drawer
           binding.drwarerLayout.openDrawer(GravityCompat.START)
        }
         return binding.root
@@ -59,48 +58,135 @@ class HomeFragment : Fragment(),ItransactionListAdapter {
         binding.setBalInfo.setOnClickListener {
             showDialog()
         }
+        updatePiechart()
         AppBar()
         updatePiechart()
-        upcomingTransaction()
-        MonthCardList()
-    }
-
-    private fun MonthCardList() {
+       upcomingTransaction()
 
     }
+
 
     private fun upcomingTransaction() {
+        Log.d("anshi" ,"upcoming tarnsaction")
        binding.transCardRV.layoutManager = LinearLayoutManager(activity)
         val adapter =TransactionListAdapter(this)
        binding.transCardRV.adapter = adapter
-        HomeFragmentViewModel.transactions.observe(viewLifecycleOwner,{ list->
+        //budget amount variable
+        var budgetAmt = 0f
+        //total budget
+        val pref = requireActivity().getSharedPreferences("Preference", Context.MODE_PRIVATE)
+        val totalBudget =  pref.getFloat("monthly_budget",0f)
+        HomeFragmentViewModel.transactions.observe(viewLifecycleOwner) { list ->
             run {
                 list?.let {
-                    Log.d("ansi",it.size.toString())
+                    Log.d("ansi", it.size.toString())
                     adapter.updatelist(it)
+                    for (i in it.indices) {
+                        budgetAmt += it[i].amount
+                    }
+                    //setting it to budegt amount text
+                    binding.BudgetText.text = "Remaining Budget : " + (totalBudget-budgetAmt).toString()
                 }
             }
-        })
-//        HomeFragmentViewModel.transactions.observe(viewLifecycleOwner, Observer{
-//            (trans_cardRV.adapter as TransactionListAdapter).submitList(it)
-//        })
-//        Log.d("anshi","upcoming transaction implemented")
+        }
     }
 
     private fun AppBar() {
-            binding.topbar.setOnMenuItemClickListener{menuItem->
-                when(menuItem.itemId){
-                    R.id.calender_icon->{
-                        findNavController().navigate(R.id.action_homeFragment_to_calendarFragment)
-                        true
+        binding.navView.setNavigationItemSelectedListener {menuItem->
+            when(menuItem.itemId){
+                R.id.DailyBasis->{
+                    findNavController().navigate(R.id.action_homeFragment_to_calendarFragment)
+                    true
+                }
+                R.id.MonthlyBasis->{
+                    findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToViewBy("Month"))
+                    true
+                }
+//                R.id.categoryWise->{
+//                    findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToViewBy("Category"))
+//                    true
+//                }
+                R.id.TransactionTypeBasis->{
+                    findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToViewBy("TransactionType"))
+                    true
+                }
+//                R.id.profile_navHeader->{
+//                    Log.d("msg","profile icon clicked")
+//                    findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
+//                    true
+//                }
+                R.id.navFeedback->{
+                    collectFeedback()
+                    true
+                }
+                R.id.help->{
+                    showHelpMessage()
+                    true
+                }
+                else->false
+            }
+        }
+        //handling Nav_Header clicks
+        val header = binding.navView.getHeaderView(0)
+        val profile = header.findViewById<ImageView>(R.id.profile_navHeader)
+        profile.setOnClickListener {
+            Log.d("msg","profile icon clicked")
+            findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
+        }
+        //setting person Name in Nav header
+        val personName = header.findViewById<TextView>(R.id.personName)
+        val pref = this.requireActivity().getSharedPreferences("Preference", Context.MODE_PRIVATE)
+        personName.text = pref.getString("name",null)
+        //handling camera floating button
+//        val addImage = header.findViewById<FloatingActionButton>(R.id.ImagechangeBtn)
+//        addImage.setOnClickListener{
+//           ImagePicker.with(this)
+//                .crop()	    			//Crop image(Optional), Check Customization for more option
+//                .compress(1024)			//Final image size will be less than 1 MB(Optional)
+//                .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+//                .start()
+//        }
+
+//            binding.topbar.setOnMenuItemClickListener{menuItem->
+//
+//            }
+    }
+
+    private fun showHelpMessage() {
+        val builder =  AlertDialog.Builder(requireActivity())
+        with(builder){
+            setTitle("How to use this App")
+            setMessage("This is a simple and easy to use app for managing expenses. Add your money distribution by clicking on set balance info button.To add a transaction , simply click on add floating button present on home screen.Then view all your transactions on the basis of daily , monthly and payment type.")
+
+        }
+        val alertdialog = builder.create()
+        alertdialog.show()
+    }
+
+    private fun collectFeedback() {
+            val builder =  AlertDialog.Builder(requireActivity())
+            //inflate feedback form layout
+            val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.feedback_form,null)
+            val feedback = dialogView.findViewById<EditText>(R.id.feedbackForm)
+            with(builder){
+                setView(dialogView)
+                setTitle("Feedback Form")
+                setMessage("\nShare your Feedback here")
+                setPositiveButton("Submit"){_,_ ->
+                    val feedbackMsg = feedback.text.toString()
+                    if(feedbackMsg==""){
+                        Toast.makeText(activity, "Invalid Input ", Toast.LENGTH_SHORT).show()
                     }
-                    R.id.profile->{
-                        findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
-                        true
+                    else{
+                        val pref = requireActivity().getSharedPreferences("Preference", Context.MODE_PRIVATE)
+                        val editor = pref.edit()
+                        editor.putString("feedback" , feedbackMsg )
+                        editor.apply()
                     }
-                    else->false
                 }
             }
+        val alertdialog = builder.create()
+        alertdialog.show()
     }
 
     private fun showDialog() {
@@ -114,7 +200,7 @@ class HomeFragment : Fragment(),ItransactionListAdapter {
             setView(dialogView)
             setTitle("Set Details")
             setMessage("Set Cash distribution Information")
-            setPositiveButton("Set") { _, which ->
+            setPositiveButton("Set") { _, _ ->
                 if (cash.text.toString() == "" || debit.text.toString() == "" || credit.text.toString() =="") {
                     Toast.makeText(activity, "Invalid Input ", Toast.LENGTH_SHORT).show()
                 }else {

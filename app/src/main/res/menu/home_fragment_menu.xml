@@ -7,10 +7,28 @@
         android:icon="@drawable/people"
         app:showAsAction="ifRoom"
         />
-    <item
-        android:id="@+id/calender_icon"
-        android:icon="@drawable/calender_icon"
-        android:title="Calender View"
-        app:showAsAction="ifRoom"/>
+  <item app:showAsAction="always"
+      android:title=""
+      android:icon="@drawable/options">
+
+      <menu>
+          <item
+              android:id="@+id/DayWise"
+              android:title="Daily"
+              app:showAsAction="never"/>
+          <item android:id="@+id/MonthWise"
+              android:title="Monthly"
+              app:showAsAction="never"/>
+          <item
+              android:id="@+id/categoryWise"
+              android:title="Category"
+              app:showAsAction="never"/>
+          <item
+              android:id="@+id/TransactionTypeWise"
+              android:title="Transaction Type"
+              app:showAsAction="never"/>
+
+      </menu>
+  </item>
 
 </menu>

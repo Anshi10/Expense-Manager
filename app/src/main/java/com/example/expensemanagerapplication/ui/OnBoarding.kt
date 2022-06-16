@@ -52,10 +52,11 @@ class OnBoarding : Fragment(R.layout.fragment_on_boarding) {
             if (binding.personName.text.toString() == "" || binding.budget.text.toString() == "" || binding.monthlyIncome.text.toString() == "") {
                 Toast.makeText(activity, "Please fill all Fields", Toast.LENGTH_SHORT).show()
             } else {
-                val name = binding.personName.editableText.toString()
+                val name = binding.personName.text?.trim().toString()
                 val monthly_budget = binding.budget.editableText.toString().toFloat()
                 val income = binding.monthlyIncome.editableText.toString().toFloat()
                 editor.putString("name", name)
+                Log.d("anshi","$name")
                 editor.putFloat("monthly_budget", monthly_budget)
                 editor.putFloat("income", income)
                 editor.apply()

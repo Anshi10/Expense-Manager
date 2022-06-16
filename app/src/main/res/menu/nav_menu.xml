@@ -2,36 +2,47 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn = "navigation_view">
-  <item android:id="@+id/navHome"
-      android:title="Home"
-      android:icon="@drawable/home"/>
 
-  <item android:id="@+id/navTrash"
-    android:title="Trash"
-    android:icon="@drawable/delete"/>
+<!--  <item android:id="@+id/Budget"-->
+<!--      android:title="Budget"-->
+<!--      android:icon="@drawable/budget"/>-->
 
-  <item android:id="@+id/navSettings"
-    android:title="Settings"
-    android:icon="@drawable/ic_baseline_settings_24"/>
+<!--  <item android:id="@+id/navTrash"-->
+<!--    android:title="Trash"-->
+<!--    android:icon="@drawable/delete"/>-->
 
-  <item   android:title="profile">
+<!--  <item android:id="@+id/navSettings"-->
+<!--    android:title="Settings"-->
+<!--    android:icon="@drawable/ic_baseline_settings_24"/>-->
+
+  <item   android:title="View By">
 
     <menu>
-      <item android:id="@+id/navLogin"
-        android:icon="@drawable/login"
-        android:title="Login"/>
+      <item android:id="@+id/DailyBasis"
+          android:icon="@drawable/day"
+        android:title="Daily Basis"/>
+      <item android:id="@+id/MonthlyBasis"
+          android:icon="@drawable/month"
+        android:title="Monthly Basis"/>
+      <item android:id="@+id/TransactionTypeBasis"
+          android:icon="@drawable/money"
+        android:title="Transaction Type Basis"/>
+
     </menu>
 
   </item>
 
   <item android:title="Communication">
     <menu>
-      <item android:id="@+id/navShare"
-        android:icon="@drawable/share"
-        android:title="Share"/>
+<!--      <item android:id="@+id/navShare"-->
+<!--        android:icon="@drawable/share"-->
+<!--        android:title="Share"/>-->
       <item android:id="@+id/navFeedback"
         android:icon="@drawable/review"
         android:title="Feedback"/>
+      <item android:id="@+id/help"
+        android:icon="@drawable/help"
+          android:title="Help"/>
     </menu>
   </item>
 

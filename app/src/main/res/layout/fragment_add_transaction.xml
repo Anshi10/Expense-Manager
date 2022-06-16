@@ -36,22 +36,37 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 android:orientation="vertical">
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:helperText="Required!"-->
+<!--                    app:endIconMode="clear_text"-->
+<!--                    android:layout_margin="12dp"-->
+<!--                    style = "@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                    android:hint="Transaction Name">-->
+
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:id="@+id/transaction_name"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:inputType="text"-->
+<!--                        />-->
+
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/category_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:clickable="true"
                     app:helperText="Required!"
-                    app:endIconMode="clear_text"
                     android:layout_margin="12dp"
-                    style = "@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:hint="Transaction Name">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/transaction_name"
+                    android:hint=" Category">
+                    <AutoCompleteTextView
+                        android:id="@+id/category_Edittext"
+                        android:inputType="none"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        />
-
+                        android:layout_height="wrap_content"/>
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -131,21 +146,6 @@
                     android:layout_height="wrap_content"
                     android:hint="To Date"/>
             </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/category_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style = "@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:clickable="true"
-                android:layout_margin="12dp"
-                android:hint=" Category"
-                app:layout_constraintTop_toBottomOf="@+id/fromdate_layout"
-                app:layout_constraintEnd_toEndOf="parent">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/category_Edittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/select_transaction_layout"
@@ -154,7 +154,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_margin="12dp"
                 android:hint="   Select Transaction Type"
-                app:layout_constraintTop_toBottomOf="@+id/category_layout"
+                app:layout_constraintTop_toBottomOf="@+id/fromdate_layout"
                 app:layout_constraintEnd_toEndOf="parent">
                 <AutoCompleteTextView
                     android:id="@+id/transaction_type"

@@ -36,7 +36,7 @@ class TransactionListAdapter(private val listener: HomeFragment) : RecyclerView.
         val trnsaction_type_view = itemView.findViewById<View>(R.id.transaction_type_view)
         val arrow = itemView.findViewById<ImageView>(R.id.arrow)
         fun bind(transaction: Transaction) {
-            item_name.text = transaction.name
+            item_name.text = transaction.category
             item_date.text = transaction.datePicker
             if(transaction.IorE){
                 item_amount.text = "+"+transaction.amount.toString()

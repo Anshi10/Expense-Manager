@@ -13,6 +13,8 @@ import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
 import com.example.expensemanagerapplication.R
 import com.example.expensemanagerapplication.data.Transaction
+import com.example.expensemanagerapplication.data.TransactionDetailDao_Impl
+import com.example.expensemanagerapplication.data.Transaction_type
 import com.example.expensemanagerapplication.data.Type
 import com.example.expensemanagerapplication.databinding.FragmentAddTransactionBinding
 import java.text.SimpleDateFormat
@@ -35,10 +37,17 @@ class AddTransactionFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentAddTransactionBinding.inflate(inflater,container,false)
-        //handling drop down menu
+
+        //handling drop down menu(Transaction Type)
         val transactionType = resources.getStringArray(R.array.type)
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, transactionType)
-        binding.transactionType.setAdapter(arrayAdapter)
+        val arrayAdapterT = ArrayAdapter(requireContext(), R.layout.dropdown_item, transactionType)
+        binding.transactionType.setAdapter(arrayAdapterT)
+
+        //handling Drop down menu (Categories)
+        val Categories = resources.getStringArray(R.array.categories)
+        val arrayAdapterC = ArrayAdapter(requireContext(),R.layout.dropdown_item,Categories)
+        binding.categoryEdittext.setAdapter(arrayAdapterC)
+
      //on clicking back button on topBar
         binding.TopBar.setNavigationOnClickListener {
             requireActivity().onBackPressed()
@@ -71,7 +80,7 @@ class AddTransactionFragment : Fragment() {
     }
 
     private fun <E: Enum<E>> storeData(mode : E) {
-        val transactionName = binding.transactionName.text.toString()
+        //val transactionName = binding.transactionName.text.toString()
         val amount = binding.amount.text.toString().toFloat()
         val category = binding.categoryEdittext.text.toString()
         val comment = binding.addComment.text.toString()
@@ -94,10 +103,59 @@ class AddTransactionFragment : Fragment() {
         if(mode==Type.Income){
             transCategory = true
         }
-        val transaction = Transaction(transactionName,amount,day,month,year,comment,date,type,category,recurringFrom,recurringTo,transCategory)
+        val transaction = Transaction(amount,day,month,year,comment,date,type,category,recurringFrom,recurringTo,transCategory)
         addTransactionViewModel.insert(transaction)
         Log.d("anshi","data inserted in add trnasaction fragment ")
         requireActivity().onBackPressed()
+
+        //updating shared preference
+        val pref = this.requireActivity().getSharedPreferences("Preference", Context.MODE_PRIVATE)
+        val editor = pref.edit()
+        if(mode==Type.Income){
+            when(type){
+                "Cash"->{
+                 var cash = pref.getFloat("cash_amount",0f)
+                 cash = cash+amount
+                 editor.putFloat("cash_amount",cash)
+                }
+                "Debit Card"->{
+                    var debit = pref.getFloat("debit_amount",0f)
+                    debit = debit+amount
+                    editor.putFloat("debit_amount",debit)
+                }
+                "Credit Card"->{
+                    var credit = pref.getFloat("debit_amount",0f)
+                     credit = credit +amount
+                    editor.putFloat("debit_amount", credit)
+                }
+            }
+        }
+        if(mode==Type.Expense){
+            when(type){
+                "Cash"->{
+                    var cash = pref.getFloat("cash_amount",0f)
+                    cash = cash-amount
+                    editor.putFloat("cash_amount",cash)
+                }
+                "Debit Card"->{
+                    var debit = pref.getFloat("debit_amount",0f)
+                    debit = debit-amount
+                    editor.putFloat("debit_amount",debit)
+                }
+                "Credit Card"->{
+                    var credit = pref.getFloat("debit_amount",0f)
+                    credit = credit -amount
+                    editor.putFloat("debit_amount", credit)
+                }
+
+            }
+        }
+        if(transaction.category== "Credit Card Bill"){
+            var credit = pref.getFloat("credit_amount",0f)
+            credit += transaction.amount
+            editor.putFloat("credit_amount",credit)
+        }
+        editor.apply()
 
     }
 
